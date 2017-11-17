@@ -1,0 +1,70 @@
+import Vue from 'vue';
+import App from './App';
+import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
+import axios from 'axios';
+import $ from 'jquery';
+/*import routers from './router';*/
+import Home from './components/home/home';
+import ByBus from './components/byBus/byBus';
+import myCenter from './components/myCenter/myCenter';
+import Login from './components/login/login';
+
+Vue.use(VueRouter);
+Vue.use(VueResource);
+
+
+const router = new VueRouter({
+  mode: 'history',
+  routes: [
+    {
+      path: '/home',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/byBus',
+      name: 'byBus',
+      // meta: {
+      //   requireAuth: true, //添加该字段，表示进入这个路由是需要登录的
+      // },
+      component: ByBus,
+      // path: '/login',
+      // component: Login,
+      // redirect: '/login',
+    },
+    {
+      path: '/myCenter',
+      name: 'myCenter',
+      component: myCenter
+    }
+  ],
+})
+
+/*router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) { //判断该路由是否需要登录权限
+    /!*if (store.state.token) { //通过vuex state获取当前的token是否存在
+      next();
+    }else {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath} //将跳转的路由path作为参数，登录成功后跳转该路由
+      })
+    }*!/
+
+  }else {
+    next();
+  }
+})*/
+
+
+/*new Vue({
+  el: '#app',
+  router,
+  render: h => h(App)
+})*/
+
+const app = new Vue({
+  router: router,
+  render: h => h(App)
+}).$mount('#app');
